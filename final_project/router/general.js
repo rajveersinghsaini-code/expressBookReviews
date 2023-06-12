@@ -53,7 +53,7 @@ public_users.get('/isbn/:isbn', async function (req, res) {
   const isbnBook = await isbnPromise;
 
   if (isbnBook) {
-    return res.status(200).json({ books: isbnBook });
+    return res.status(200).json(isbnBook);
   } else {
     return res.status(204).json({ message: 'Book not found' });
   }

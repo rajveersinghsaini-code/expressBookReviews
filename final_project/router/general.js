@@ -19,7 +19,9 @@ public_users.post('/register', (req, res) => {
   if (username && password) {
     if (!doesUserExist(username)) {
       users.push({ username, password });
-      return res.status(201).json({ message: 'User added successfully.' });
+      return res.status(201).json({
+        message: 'Customer successfully registered, Now you can login.',
+      });
     } else {
       return res.status(200).json({ message: 'Username already exists.' });
     }
@@ -73,7 +75,7 @@ public_users.get('/author/:author', async function (req, res) {
   const filteredBooks = await bookPromise;
 
   if (filteredBooks) {
-    return res.status(200).json({ books: filteredBooks });
+    return res.status(200).json({ booksByAuthor: filteredBooks });
   } else {
     return res
       .status(204)
@@ -96,7 +98,7 @@ public_users.get('/title/:title', async function (req, res) {
 
   const filteredBooks = await bookPromise;
   if (filteredBooks) {
-    return res.status(200).json({ books: filteredBooks });
+    return res.status(200).json({ booksByTitle: filteredBooks });
   } else {
     return res.status(204).json({ message: 'Book not found' });
   }
@@ -108,7 +110,7 @@ public_users.get('/review/:isbn', function (req, res) {
 
   const bookReviews = books[isbn].reviews;
   if (bookReviews) {
-    return res.status(200).json({ reviews: bookReviews });
+    return res.status(200).json(bookReviews);
   } else {
     return res.status(404).json({ message: 'No reviews found' });
   }
